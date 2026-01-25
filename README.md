@@ -1,3 +1,6 @@
+[![BuildStatus](https://github.com/jessicaflowers/HW3-PRIM-MST/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/jessicaflowers/HW3-PRIM-MST/actions/workflows/test.yml)
+
+
 # HW 3: Prim's algorithm
 
 In this assignment, you'll implement Prim's algorithm, a non-trivial greedy algorithm used to construct minimum spanning trees. 
