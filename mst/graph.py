@@ -41,10 +41,91 @@ class Graph:
         `heapify`, `heappop`, and `heappush` functions.
 
         """
-        self.mst = None
+        W = self.adj_mat
 
-        # Initialize S = { s } for any node s, T = ∅.
-        # Repeat n – 1 times:
-        # ・Add to T a min-weight edge with exactly one endpoint in S.
-        # ・Add the other endpoint to S
+        # Adjacency matrix must be a square 2D array
+        if not isinstance(W, np.ndarray) or W.ndim != 2 or W.shape[0] != W.shape[1]:
+            raise ValueError("adjacency matrix must be a square 2D numpy array")
+
+        n = len(W) # number of nodes
+
+        # Handle small graphs explicitly
+        if n == 0:
+            self.mst = np.array([[]], dtype=float)
+            return
+
+        if n == 1:
+            self.mst = np.zeros((1, 1), dtype=float)
+            return
+
+        mst = np.zeros((n, n), dtype=float) # initialize mst
+
+        start = 0
+
+        visited = set() # gonna keep track of nodes that i visited
+        visited.add(start) # add start node 
+
+        # Priority queue (min-heap) of "frontier edges"
+        # Each item will be: (edge_weight, from_node_in_S, to_node_not_in_S)
+        heap = []
+
+        # Add all edges from the start node to the heap
+        for v in range(n):
+            if v == start: #skip self loops
+                continue
+            
+
+            w = W[start, v] # this indexes matrix at start, v
+            if w == 0: 
+                continue 
+            heap.append((w,start,v)) # add edge start-v as canditate 
+            
+        heapq.heapify(heap)
+
+        # Track how many edges we've placed into the MST
+        edges_added = 0
+
+        # this is the main block of prim's algo, should go on n-1 steps
+        while heap and edges_added < (n - 1):
+
+            # Pop the minimum-weight edge currently crossing the cut (S vs not-S)
+            w, u, v = heapq.heappop(heap)
+
+            
+            if v in visited: # If v is already in visited, skip it and keep going.
+                continue
+
+            # Add v to visited (grow S)
+            visited.add(v)
+
+            # Add the edge to the MST adjacency matrix (undirected, so fill both entries)
+            mst[u, v] = w
+            mst[v, u] = w
+
+            edges_added += 1
+
+            # look for edges ending in nodes that have not been visited yet
+            for x in range(n):
+                if x == v:
+                    continue
+                if x in visited:
+                    continue
+
+                wx = W[v, x] # this indexes the adjacency matrix at v and x
+                if wx == 0:
+                    continue
+                
+                heapq.heappush(heap, (wx, v, x)) # push edge into heap
+
+
+        # checks:
+        # graph couldnt have been connected if i didnt add n-1 edges
+        if edges_added != (n - 1):
+            raise ValueError("Input graph must be connected to have an MST")
+
+        self.mst = mst
+
+
+
+
 
