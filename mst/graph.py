@@ -42,3 +42,9 @@ class Graph:
 
         """
         self.mst = None
+
+        # Initialize S = { s } for any node s, T = ∅.
+        # Repeat n – 1 times:
+        # ・Add to T a min-weight edge with exactly one endpoint in S.
+        # ・Add the other endpoint to S
+
