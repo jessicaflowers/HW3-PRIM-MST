@@ -33,8 +33,14 @@ def check_mst(adj_mat: np.ndarray,
     for i in range(mst.shape[0]):
         for j in range(i+1):
             total += mst[i, j]
-    #assert approx_equal(total, expected_weight), 'Proposed MST has incorrect expected weight'
-    pass
+    assert approx_equal(total, expected_weight), 'Proposed MST has incorrect expected weight'
+    
+    # how many edges should a minimum spanning tree have? should be n-1
+    n = mst.shape[0]
+    num_edges = np.count_nonzero(np.triu(mst, k=1))  # count undirected edges once
+    assert num_edges == n - 1, f'Proposed MST has incorrect number of edges (got {num_edges}, expected {n-1})'
+
+    
 
 def test_mst_small():
     """
@@ -71,4 +77,13 @@ def test_mst_student():
     TODO: Write at least one unit test for MST construction.
     
     """
-    pass
+    file_path = './data/small.csv'
+    g = Graph(file_path)
+    g.construct_mst()
+
+    # Undirected MST should be symmetric
+    assert np.allclose(g.mst, g.mst.T), "MST adjacency matrix should be symmetric"
+
+    # No self-loops in MST
+    assert np.allclose(np.diag(g.mst), 0), "MST diagonal should be all zeros"
+
