@@ -1,7 +1,6 @@
 import numpy as np
 import heapq
 from typing import Union
-from scipy.linalg import issymmetric
 
 
 class Graph:
