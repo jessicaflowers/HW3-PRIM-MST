@@ -1,6 +1,20 @@
 [![BuildStatus](https://github.com/jessicaflowers/HW3-PRIM-MST/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/jessicaflowers/HW3-PRIM-MST/actions/workflows/test.yml)
 
 
+# resources used for this assingment:
+https://en.wikipedia.org/wiki/Algebraic_connectivity?utm_source=chatgpt.com
+
+
+https://en.wikipedia.org/wiki/Laplacian_matrix
+
+
+https://web.stanford.edu/class/cs168/l/l11.pdf
+
+https://math.stackexchange.com/questions/1349907/what-is-the-relation-between-rank-of-a-matrix-its-eigenvalues-and-eigenvectors
+
+
+
+
 # HW 3: Prim's algorithm
 
 In this assignment, you'll implement Prim's algorithm, a non-trivial greedy algorithm used to construct minimum spanning trees. 
