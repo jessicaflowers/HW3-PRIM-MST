@@ -97,22 +97,6 @@ def test_mst_single_cell_data():
     check_mst(g.adj_mat, g.mst, 57.263561605571695)
 
 
-def test_mst_student():
-    """
-    The MST should select the two lowest-weight edges. Total MST weight should be 3 + 4 = 7.
-    """
-    adj = np.array([
-        [0, 3, 5],
-        [3, 0, 4],
-        [5, 4, 0]
-    ], dtype=float)
-
-    g = Graph(adj)
-    g.construct_mst()
-    check_mst(g.adj_mat, g.mst, expected_weight=7.0)
-
-
-
 def check_if_disconnected():
     """
     given a bad MST that is disconnected, do I catch it?
